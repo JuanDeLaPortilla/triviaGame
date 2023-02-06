@@ -1,0 +1,475 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.1
+-- Dumped by pg_dump version 15.1
+
+-- Started on 2023-02-05 21:43:11
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 219 (class 1259 OID 16418)
+-- Name: categoria_pregunta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categoria_pregunta (
+    categoria_id bigint NOT NULL,
+    categoria_contenido text
+);
+
+
+ALTER TABLE public.categoria_pregunta OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16417)
+-- Name: categoria_pregunta_categoria_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categoria_pregunta_categoria_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categoria_pregunta_categoria_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3383 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: categoria_pregunta_categoria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categoria_pregunta_categoria_id_seq OWNED BY public.categoria_pregunta.categoria_id;
+
+
+--
+-- TOC entry 223 (class 1259 OID 16437)
+-- Name: partida; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.partida (
+    partida_id bigint NOT NULL,
+    partida_nombre character varying(255) NOT NULL,
+    partida_fecha date DEFAULT CURRENT_DATE
+);
+
+
+ALTER TABLE public.partida OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16436)
+-- Name: partida_partida_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.partida_partida_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.partida_partida_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3384 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: partida_partida_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.partida_partida_id_seq OWNED BY public.partida.partida_id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 16409)
+-- Name: pregunta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pregunta (
+    pregunta_id bigint NOT NULL,
+    categoria_id bigint NOT NULL,
+    pregunta_contenido text NOT NULL
+);
+
+
+ALTER TABLE public.pregunta OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 16408)
+-- Name: pregunta_pregunta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pregunta_pregunta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pregunta_pregunta_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3385 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: pregunta_pregunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pregunta_pregunta_id_seq OWNED BY public.pregunta.pregunta_id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 16427)
+-- Name: respuesta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.respuesta (
+    respuesta_id bigint NOT NULL,
+    pregunta_id bigint NOT NULL,
+    respuesta_contenido text NOT NULL,
+    es_correcta smallint DEFAULT 0
+);
+
+
+ALTER TABLE public.respuesta OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16426)
+-- Name: respuesta_respuesta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.respuesta_respuesta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.respuesta_respuesta_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3386 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: respuesta_respuesta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.respuesta_respuesta_id_seq OWNED BY public.respuesta.respuesta_id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 16400)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    usuario_id bigint NOT NULL,
+    usuario_nombre character varying(255) NOT NULL,
+    usuario_correo character varying(255) NOT NULL,
+    usuario_pass character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16444)
+-- Name: usuario_partida; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario_partida (
+    usuario_id bigint NOT NULL,
+    partida_id bigint NOT NULL,
+    puntaje integer DEFAULT 0
+);
+
+
+ALTER TABLE public.usuario_partida OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16448)
+-- Name: usuario_pregunta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario_pregunta (
+    usuario_id bigint NOT NULL,
+    partida_id bigint NOT NULL,
+    pregunta_id bigint NOT NULL,
+    puntaje integer NOT NULL
+);
+
+
+ALTER TABLE public.usuario_pregunta OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 16451)
+-- Name: usuario_respuesta; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario_respuesta (
+    usuario_id bigint NOT NULL,
+    partida_id bigint NOT NULL,
+    pregunta_id bigint NOT NULL,
+    respuesta_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.usuario_respuesta OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 16399)
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.usuarios_usuario_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuarios_usuario_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3387 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.usuarios_usuario_id_seq OWNED BY public.usuario.usuario_id;
+
+
+--
+-- TOC entry 3207 (class 2604 OID 16421)
+-- Name: categoria_pregunta categoria_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria_pregunta ALTER COLUMN categoria_id SET DEFAULT nextval('public.categoria_pregunta_categoria_id_seq'::regclass);
+
+
+--
+-- TOC entry 3210 (class 2604 OID 16440)
+-- Name: partida partida_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.partida ALTER COLUMN partida_id SET DEFAULT nextval('public.partida_partida_id_seq'::regclass);
+
+
+--
+-- TOC entry 3206 (class 2604 OID 16412)
+-- Name: pregunta pregunta_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pregunta ALTER COLUMN pregunta_id SET DEFAULT nextval('public.pregunta_pregunta_id_seq'::regclass);
+
+
+--
+-- TOC entry 3208 (class 2604 OID 16430)
+-- Name: respuesta respuesta_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.respuesta ALTER COLUMN respuesta_id SET DEFAULT nextval('public.respuesta_respuesta_id_seq'::regclass);
+
+
+--
+-- TOC entry 3205 (class 2604 OID 16403)
+-- Name: usuario usuario_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario ALTER COLUMN usuario_id SET DEFAULT nextval('public.usuarios_usuario_id_seq'::regclass);
+
+
+--
+-- TOC entry 3370 (class 0 OID 16418)
+-- Dependencies: 219
+-- Data for Name: categoria_pregunta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.categoria_pregunta (categoria_id, categoria_contenido) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3374 (class 0 OID 16437)
+-- Dependencies: 223
+-- Data for Name: partida; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.partida (partida_id, partida_nombre, partida_fecha) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3368 (class 0 OID 16409)
+-- Dependencies: 217
+-- Data for Name: pregunta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pregunta (pregunta_id, categoria_id, pregunta_contenido) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3372 (class 0 OID 16427)
+-- Dependencies: 221
+-- Data for Name: respuesta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.respuesta (respuesta_id, pregunta_id, respuesta_contenido, es_correcta) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3366 (class 0 OID 16400)
+-- Dependencies: 215
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario (usuario_id, usuario_nombre, usuario_correo, usuario_pass) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3375 (class 0 OID 16444)
+-- Dependencies: 224
+-- Data for Name: usuario_partida; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario_partida (usuario_id, partida_id, puntaje) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3376 (class 0 OID 16448)
+-- Dependencies: 225
+-- Data for Name: usuario_pregunta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario_pregunta (usuario_id, partida_id, pregunta_id, puntaje) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3377 (class 0 OID 16451)
+-- Dependencies: 226
+-- Data for Name: usuario_respuesta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario_respuesta (usuario_id, partida_id, pregunta_id, respuesta_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3388 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: categoria_pregunta_categoria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categoria_pregunta_categoria_id_seq', 1, false);
+
+
+--
+-- TOC entry 3389 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: partida_partida_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.partida_partida_id_seq', 1, false);
+
+
+--
+-- TOC entry 3390 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: pregunta_pregunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pregunta_pregunta_id_seq', 1, false);
+
+
+--
+-- TOC entry 3391 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: respuesta_respuesta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.respuesta_respuesta_id_seq', 1, false);
+
+
+--
+-- TOC entry 3392 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: usuarios_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuarios_usuario_id_seq', 1, false);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 16425)
+-- Name: categoria_pregunta categoria_pregunta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria_pregunta
+    ADD CONSTRAINT categoria_pregunta_pkey PRIMARY KEY (categoria_id);
+
+
+--
+-- TOC entry 3222 (class 2606 OID 16443)
+-- Name: partida partida_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.partida
+    ADD CONSTRAINT partida_pkey PRIMARY KEY (partida_id);
+
+
+--
+-- TOC entry 3216 (class 2606 OID 16416)
+-- Name: pregunta pregunta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pregunta
+    ADD CONSTRAINT pregunta_pkey PRIMARY KEY (pregunta_id);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 16435)
+-- Name: respuesta respuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.respuesta
+    ADD CONSTRAINT respuesta_pkey PRIMARY KEY (respuesta_id);
+
+
+--
+-- TOC entry 3214 (class 2606 OID 16407)
+-- Name: usuario usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (usuario_id);
+
+
+-- Completed on 2023-02-05 21:43:11
+
+--
+-- PostgreSQL database dump complete
+--
+
