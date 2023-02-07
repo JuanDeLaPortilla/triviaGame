@@ -7,16 +7,18 @@ public class Usuario {
     private String nombre;
     private String correo;
     private String pass;
+    private int esAdmin;
 
     //Constructores
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombre, String correo, String pass) {
+    public Usuario(Long id, String nombre, String correo, String pass, int esAdmin) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.pass = pass;
+        this.esAdmin = esAdmin;
     }
 
     //Getters y Setters
@@ -50,5 +52,13 @@ public class Usuario {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(int esAdmin) {
+        this.esAdmin = esAdmin;
     }
 }

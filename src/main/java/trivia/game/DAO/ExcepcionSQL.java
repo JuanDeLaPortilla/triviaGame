@@ -1,4 +1,4 @@
-package trivia.game.servicios;
+package trivia.game.DAO;
 
 public class ExcepcionSQL extends RuntimeException {
     public ExcepcionSQL(String message) {

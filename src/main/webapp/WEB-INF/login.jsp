@@ -18,11 +18,11 @@
             <div>
                 <h2 class="pb-3">Jugador ${numeroJugador}, &iexcl;Inicia Sesi&oacute;n!</h2>
             </div>
-            <form>
+            <form method="post" action="${pageContext.request.contextPath}/login?player=${numeroJugador}">
                 <!-- Email input -->
                 <div class="form-outline mb-4 pt-2">
                     <input type="email" id="form3Example3" class="form-control form-control-lg"
-                           placeholder="ejemplo@correo.com" name="email" required/>
+                           placeholder="ejemplo@correo.com" name="correo" required/>
                     <label class="form-label pt-2" for="form3Example3">Correo Electr&oacute;nico</label>
                 </div>
 
@@ -34,9 +34,8 @@
                 </div>
 
                 <div class="text-center text-lg-start pt-2">
-                    <button type="button" class="btn btn-custom btn-lg"
-                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Ingresar
-                    </button>
+                    <input type="submit" class="btn btn-custom btn-lg"
+                           style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Ingresar"/>
                     <p class="small mt-2 pt-2 mb-0">&iquest;Todav&iacute;a no tienes una cuenta? <a
                             href="${pageContext.request.contextPath}/register.jsp"
                             class="link-info">Reg&iacute;strate</a>

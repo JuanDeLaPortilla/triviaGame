@@ -46,7 +46,7 @@
                             style="padding-left: 2.5rem; padding-right: 2.5rem;">Registrarse
                     </button>
                     <p class="small mt-2 pt-2 mb-0">&iquest;Ya tienes una cuenta? <a
-                            href="${pageContext.request.contextPath}/login.jsp"
+                            href="${pageContext.request.contextPath}/WEB-INF/login.jsp"
                             class="link-info">Inicia Sesi&oacute;n</a>
                     </p>
                 </div>
