@@ -44,21 +44,37 @@ public class UsuarioDAO implements DAO<Usuario> {
         return usuario;
     }
 
+    public Usuario buscarPorCorreo(String correo) {
+        Usuario usuario = null;
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.usuario where usuario_correo=?")) {
+            stmt.setString(1, correo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    usuario = getUsuario(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+        return usuario;
+    }
+
     @Override
     public void modificar(Usuario usuario) {
         String sql;
         if (usuario.getId() != null && usuario.getId() > 0) {
             sql = "update public.usuario set usuario_nombre=?, usuario_correo=?, usuario_pass=?, es_admin=? where usuario_id=?";
         } else {
-            sql = "insert into public.usuario (usuario_nombre, usuario_correo, usuario_pass) values (?,?,?)";
+            sql = "insert into public.usuario (usuario_nombre, usuario_correo, usuario_pass, es_admin) values (?,?,?,?)";
         }
 
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, usuario.getNombre());
             pst.setString(2, usuario.getCorreo());
             pst.setString(3, usuario.getPass());
-            if (usuario.getId() != null && usuario.getId() > 0) {
-                pst.setInt(4, usuario.getEsAdmin());
+            pst.setInt(4, usuario.getEsAdmin());
+            if(usuario.getId() != null && usuario.getId() > 0){
+                pst.setLong(5,usuario.getId());
             }
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -97,7 +113,7 @@ public class UsuarioDAO implements DAO<Usuario> {
         return usuario;
     }
 
-    private Usuario getUsuario(ResultSet rs) throws SQLException {
+    public static Usuario getUsuario(ResultSet rs) throws SQLException {
         Usuario u = new Usuario();
         u.setId(rs.getLong("usuario_id"));
         u.setNombre(rs.getString("usuario_nombre"));
