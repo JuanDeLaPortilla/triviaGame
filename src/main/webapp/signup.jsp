@@ -8,18 +8,15 @@
 </head>
 <body>
 
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 spacer signup-background">
     <div class="row d-flex justify-content-center align-items-center h-100">
 
         <!-- Left -->
-        <div class="col-md-9 col-lg-6 col-xl-5">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                 class="img-fluid" alt="Sample image">
-        </div>
+        <div class="col-xl-5 d-none d-xl-block"></div>
         <!-- Left -->
 
         <!-- Right -->
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 p-4 bg-primary text-light custom-border">
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 p-4 text-light custom-border">
 
             <!-- Title -->
             <div class="pb-3 d-flex flex-column">
@@ -36,7 +33,7 @@
                     <label class="form-label pt-2" for="form3Example1">Nombre de Usuario</label>
                     <input type="text" id="form3Example1" class="form-control"
                            placeholder="John69" name="nombre" required/>
-                    <div class="invalid-feedback text-light">Por favor, ingresa un nombre de usuario</div>
+                    <div class="invalid-feedback">Por favor, ingresa un nombre de usuario</div>
                 </div>
                 <!-- Name input -->
 
@@ -46,7 +43,7 @@
                     <label class="form-label pt-2" for="form3Example3">Correo Electr&oacute;nico</label>
                     <input type="email" id="form3Example3" class="form-control"
                            placeholder="ejemplo@correo.com" name="correo" required/>
-                    <div class="invalid-feedback text-light">Por favor, ingresa un correo elect&oacute;nico</div>
+                    <div class="invalid-feedback">Por favor, ingresa un correo electr&oacute;nico</div>
                 </div>
                 <!-- Email input -->
 
@@ -56,7 +53,7 @@
                     <label class="form-label pt-2" for="form3Example4">Contrase&ntilde;a</label>
                     <input type="password" id="form3Example4" class="form-control"
                            placeholder="*****" name="pass" required/>
-                    <div class="invalid-feedback text-light">Por favor, ingresa una contrase&ntilde;a</div>
+                    <div class="invalid-feedback">Por favor, ingresa una contrase&ntilde;a</div>
                 </div>
                 <!-- Password input -->
 

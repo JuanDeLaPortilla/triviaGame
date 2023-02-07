@@ -17,8 +17,9 @@
 }
 
 .btn-custom:hover {
-    color: #0d6efd !important;
+    color: #031633 !important;
     background-color: white !important;
+    font-weight: 600 !important;
     transition: all 200ms;
 }
 
@@ -34,4 +35,24 @@
     .h-custom {
         height: 100% !important;
     }
+}
+
+.spacer {
+    aspect-ratio: 960/540;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.index-background {
+    background-image: url("../img/index_bg.svg");
+}
+
+.login-background {
+    background-image: url("../img/login_bg.svg");
+}
+
+.signup-background {
+    background-image: url("../img/signup_bg.svg");
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 spacer index-background">
     <div class="row d-flex justify-content-center align-items-center h-100">
 
         <!-- Center -->
@@ -19,7 +19,7 @@
 
             <!-- Title -->
             <div>
-                <h1 class="pb-5 text-center text-primary">Juego de Trivia</h1>
+                <h1 class="pb-5 text-center text-light">Juego de Trivia</h1>
             </div>
             <!-- Title -->
 
