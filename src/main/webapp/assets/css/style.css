@@ -11,19 +11,23 @@
 }
 
 .btn-custom {
-    color:white !important;
+    color: white !important;
     background-color: transparent !important;
     border-color: white !important;
 }
 
-.btn-custom:hover{
+.btn-custom:hover {
     color: #0d6efd !important;
-    background-color: white!important;
+    background-color: white !important;
     transition: all 200ms;
 }
 
-.custom-border{
+.custom-border {
     border-radius: 0.5rem !important;
+}
+
+.fa-solid {
+    padding-right: 0.75rem !important;
 }
 
 @media (max-width: 450px) {

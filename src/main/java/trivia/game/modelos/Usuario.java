@@ -21,6 +21,13 @@ public class Usuario {
         this.esAdmin = esAdmin;
     }
 
+    public Usuario(String nombre, String correo, String pass, int esAdmin) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.pass = pass;
+        this.esAdmin = esAdmin;
+    }
+
     //Getters y Setters
     public Long getId() {
         return id;

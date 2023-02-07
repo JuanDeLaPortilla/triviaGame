@@ -36,6 +36,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>glassfish-jstl</artifactId>
+            <version>11.0.13</version>
+        </dependency>
     </dependencies>
 
     <build>
