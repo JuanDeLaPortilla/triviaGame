@@ -1,6 +1,7 @@
 package trivia.game.DAO;
 
 import trivia.game.modelos.CategoriaPregunta;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;

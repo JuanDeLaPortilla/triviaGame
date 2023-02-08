@@ -3,7 +3,7 @@ package trivia.game.filtros;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
-import trivia.game.DAO.ExcepcionSQL;
+import trivia.game.util.ExcepcionSQL;
 import trivia.game.util.ConexionDB;
 
 import java.io.IOException;

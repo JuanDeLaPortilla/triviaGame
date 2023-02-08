@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Editar Usuario</title>
+    <title>Editar Partida</title>
     <%@include file="/WEB-INF/dashboard/commons/dashboard-head-imports.jsp" %>
 </head>
 <body class="spacer">
@@ -22,44 +22,26 @@
             <div class="col-lg-6 col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Editar un Usuario</h5>
+                        <h5 class="card-title">Editar una Partida</h5>
                         <form class="row g-3" method="post"
-                              action="${pageContext.request.contextPath}/usuarios?action=update">
+                              action="${pageContext.request.contextPath}/partidas?action=update">
                             <div class="col-12"><label for="input1" class="form-label">Nombre</label>
                                 <input type="text"
                                        class="form-control"
                                        id="input1"
                                        name="nombre"
-                                       value="${requestScope.usuario.nombre}"
+                                       value="${requestScope.partida.nombre}"
                                        required>
                             </div>
-                            <div class="col-12"><label for="input4" class="form-label">Correo Electr&oacute;nico</label>
-                                <input type="email"
+                            <div class="col-12"><label for="input4" class="form-label">Fecha de Creaci&oacute;n</label>
+                                <input type="date"
                                        class="form-control"
                                        id="input4"
                                        name="correo"
-                                       value="${requestScope.usuario.correo}"
+                                       value="${requestScope.partida.fechaCreacion}"
                                        required>
                             </div>
-                            <div class="col-12"><label for="input3" class="form-label">Nivel</label>
-                                <select name="esAdmin" class="form-select" id="input3" required>
-                                    <c:choose>
-                                        <c:when test="${requestScope.usuario.esAdmin == 0}">
-                                            <option value="0" selected>Normal</option>
-                                            <option value="1">Administrador</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="0">Normal</option>
-                                            <option value="1" selected>Administrador</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </select>
-                            </div>
-                            <div class="col-12"><label for="input5" class="form-label">Contrase&ntilde;a</label>
-                                <input type="password" class="form-control" id="input5" name="pass"
-                                       value="${requestScope.usuario.pass}"
-                                       required></div>
-                            <input type="hidden" name="id" value="${requestScope.usuario.id}">
+                            <input type="hidden" name="id" value="${requestScope.partida.id}">
                             <div class="text-center"><input type="submit" class="btn btn-primary" value="Editar">
                             </div>
                         </form>

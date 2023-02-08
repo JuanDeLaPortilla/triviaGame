@@ -1,6 +1,7 @@
 package trivia.game.DAO;
 
 import trivia.game.modelos.Partida;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,6 +74,23 @@ public class PartidaDAO implements DAO<Partida> {
         } catch (SQLException e) {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());
         }
+    }
+
+    public long contarPorMes() {
+        long partidas = 0;
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery
+                     ("SELECT count(partida_id) as partidas from public.partida where extract(month from partida_fecha) " +
+                             "= extract(month from current_date)")) {
+           if(rs.next()){
+               partidas = rs.getLong("partidas");
+           }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+
+        return partidas;
     }
 
     public static Partida getPartida(ResultSet rs) throws SQLException {

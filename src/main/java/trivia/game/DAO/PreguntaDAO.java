@@ -1,6 +1,7 @@
 package trivia.game.DAO;
 
 import trivia.game.modelos.Pregunta;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class PreguntaDAO implements DAO<Pregunta> {
     public List<Pregunta> buscar() {
         List<Pregunta> preguntas = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * from public.pregunta")) {
+             ResultSet rs = stmt.executeQuery("SELECT p.*, cp.categoria_contenido from public.pregunta p inner join categoria_pregunta cp on p.categoria_id = cp.categoria_id")) {
             while (rs.next()) {
                 Pregunta pregunta = getPregunta(rs);
                 preguntas.add(pregunta);
@@ -31,7 +32,7 @@ public class PreguntaDAO implements DAO<Pregunta> {
     @Override
     public Pregunta buscarPorId(Long id) {
         Pregunta pregunta = null;
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.pregunta where pregunta_id=?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT p.*, cp.categoria_contenido from public.pregunta p inner join categoria_pregunta cp on p.categoria_id = cp.categoria_id where pregunta_id=?")) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {

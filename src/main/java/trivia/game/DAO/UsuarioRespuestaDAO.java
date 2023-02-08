@@ -1,6 +1,7 @@
 package trivia.game.DAO;
 
-import trivia.game.modelos.UsuarioRespuesta;
+import trivia.game.modelos.*;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class UsuarioRespuestaDAO {
     public List<UsuarioRespuesta> buscar() {
         List<UsuarioRespuesta> usuarioRespuestas = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * from public.usuario_respuesta")) {
+             ResultSet rs = stmt.executeQuery("SELECT ur.*, u.usuario_nombre, p.partida_nombre, pr.pregunta_contenido, r.respuesta_contenido, r.es_correcta from public.usuario_respuesta ur inner join partida p on ur.partida_id = p.partida_id inner join respuesta r on ur.respuesta_id = r.respuesta_id inner join usuario u on ur.usuario_id = u.usuario_id inner join pregunta pr on ur.pregunta_id = pr.pregunta_id")) {
             while (rs.next()) {
                 UsuarioRespuesta usuarioRespuesta = getUsuarioRespuesta(rs);
                 usuarioRespuestas.add(usuarioRespuesta);
@@ -29,7 +30,7 @@ public class UsuarioRespuestaDAO {
 
     public List<UsuarioRespuesta> buscarPorId(Long usuarioId, Long partidaId) {
         List<UsuarioRespuesta> usuarioRespuestas = new ArrayList<>();
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.usuario_respuesta where usuario_id=? and partida_id=?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT ur.*, u.usuario_nombre, p.partida_nombre, pr.pregunta_contenido, r.respuesta_contenido, r.es_correcta from public.usuario_respuesta ur inner join partida p on ur.partida_id = p.partida_id inner join respuesta r on ur.respuesta_id = r.respuesta_id inner join usuario u on ur.usuario_id = u.usuario_id inner join pregunta pr on ur.pregunta_id = pr.pregunta_id where ur.usuario_id=? and ur.partida_id=?")) {
             stmt.setLong(1, usuarioId);
             stmt.setLong(2, partidaId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -46,7 +47,7 @@ public class UsuarioRespuestaDAO {
 
     public List<UsuarioRespuesta> buscarPorUsuario(Long id) {
         List<UsuarioRespuesta> usuarioRespuestas = new ArrayList<>();
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.usuario_respuesta where usuario_id=?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT ur.*, u.usuario_nombre, p.partida_nombre, pr.pregunta_contenido, r.respuesta_contenido, r.es_correcta from public.usuario_respuesta ur inner join partida p on ur.partida_id = p.partida_id inner join respuesta r on ur.respuesta_id = r.respuesta_id inner join usuario u on ur.usuario_id = u.usuario_id inner join pregunta pr on ur.pregunta_id = pr.pregunta_id where ur.usuario_id=?")) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -97,11 +98,26 @@ public class UsuarioRespuestaDAO {
     }
 
     public static UsuarioRespuesta getUsuarioRespuesta(ResultSet rs) throws SQLException {
-        UsuarioRespuesta up = new UsuarioRespuesta();
-        up.setUsuario(UsuarioDAO.getUsuario(rs));
-        up.setPartida(PartidaDAO.getPartida(rs));
-        up.setPregunta(PreguntaDAO.getPregunta(rs));
-        up.setRespuesta(RespuestaDAO.getRespuesta(rs));
-        return up;
+        UsuarioRespuesta ur = new UsuarioRespuesta();
+        Usuario u = new Usuario();
+        Partida p = new Partida();
+        Respuesta r = new Respuesta();
+        Pregunta pr = new Pregunta();
+
+        u.setId(rs.getLong("usuario_id"));
+        u.setNombre(rs.getString("usuario_nombre"));
+        p.setId(rs.getLong("partida_id"));
+        p.setNombre(rs.getString("partida_nombre"));
+        r.setId(rs.getLong("respuesta_id"));
+        r.setContenido(rs.getString("respuesta_contenido"));
+        r.setEsCorrecta(rs.getInt("es_correcta"));
+        pr.setId(rs.getLong("pregunta_id"));
+        pr.setContenido(rs.getString("pregunta_contenido"));
+
+        ur.setUsuario(u);
+        ur.setPartida(p);
+        ur.setPregunta(pr);
+        ur.setRespuesta(r);
+        return ur;
     }
 }

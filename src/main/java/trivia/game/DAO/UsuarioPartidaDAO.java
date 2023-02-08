@@ -1,6 +1,9 @@
 package trivia.game.DAO;
 
+import trivia.game.modelos.Partida;
+import trivia.game.modelos.Usuario;
 import trivia.game.modelos.UsuarioPartida;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ public class UsuarioPartidaDAO {
     public List<UsuarioPartida> buscar() {
         List<UsuarioPartida> usuarioPartidas = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * from public.usuario_partida")) {
+             ResultSet rs = stmt.executeQuery("SELECT up.*, u.usuario_nombre, p.partida_nombre from public.usuario_partida up inner join usuario u on up.usuario_id = u.usuario_id inner join partida p on up.partida_id = p.partida_id")) {
             while (rs.next()) {
                 UsuarioPartida usuarioPartida = getUsuarioPartida(rs);
                 usuarioPartidas.add(usuarioPartida);
@@ -29,7 +32,7 @@ public class UsuarioPartidaDAO {
 
     public UsuarioPartida buscarPorId(Long usuarioId, Long partidaId) {
         UsuarioPartida usuarioPartida = null;
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.usuario_partida where usuario_id=? and partida_id=?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT up.*, u.usuario_nombre, p.partida_nombre from public.usuario_partida up inner join usuario u on up.usuario_id = u.usuario_id inner join partida p on up.partida_id = p.partida_id where usuario_id=? and partida_id=?")) {
             stmt.setLong(1, usuarioId);
             stmt.setLong(2, partidaId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -93,8 +96,17 @@ public class UsuarioPartidaDAO {
 
     public static UsuarioPartida getUsuarioPartida(ResultSet rs) throws SQLException {
         UsuarioPartida up = new UsuarioPartida();
-        up.setUsuario(UsuarioDAO.getUsuario(rs));
-        up.setPartida(PartidaDAO.getPartida(rs));
+        Usuario u = new Usuario();
+        Partida p = new Partida();
+
+        u.setId(rs.getLong("usuario_id"));
+        u.setNombre(rs.getString("usuario_nombre"));
+
+        p.setId(rs.getLong("partida_id"));
+        p.setNombre(rs.getString("partida_nombre"));
+
+        up.setUsuario(u);
+        up.setPartida(p);
         up.setPuntaje(rs.getInt("puntaje"));
         return up;
     }

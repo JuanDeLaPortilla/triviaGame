@@ -10,4 +10,4 @@
 <link href="${pageContext.request.contextPath}/assets/css/quill.bubble.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/assets/css/remixicon.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/assets/css/simple-datatables.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/assets/css/dashboard-style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/assets/css/dashboard-style.css?v=1.4" rel="stylesheet">

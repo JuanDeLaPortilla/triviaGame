@@ -10,7 +10,7 @@
 body {
     font-family: "Open Sans", sans-serif;
     background-image: url("../img/dashboard_bg.svg");
-    color: #444444;
+    color: white !important;
     height: 100vh !important;
     overflow-y: hidden;
 }
@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Nunito", sans-serif;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 375px) {
     body {
         height: initial !important;
         overflow-y: initial;
@@ -896,14 +896,6 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 14px;
 }
 
-.dashboard .recent-sales .table thead {
-    background: #f6f6fe;
-}
-
-.dashboard .recent-sales .table thead th {
-    border: 0;
-}
-
 .dashboard .recent-sales .dataTable-top {
     padding: 0 0 10px 0;
 }
@@ -1224,4 +1216,16 @@ h1, h2, h3, h4, h5, h6 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+.table{
+    color: white !important;
+}
+
+.card.overflow-auto .card-body{
+    height: 85vh !important;
+}
+
+.card.overflow-auto.recent-sales .card-body{
+    height: initial !important;
 }

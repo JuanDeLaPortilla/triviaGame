@@ -1,6 +1,8 @@
 package trivia.game.DAO;
 
 import trivia.game.modelos.Usuario;
+import trivia.game.modelos.UsuarioRanking;
+import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,8 +75,8 @@ public class UsuarioDAO implements DAO<Usuario> {
             pst.setString(2, usuario.getCorreo());
             pst.setString(3, usuario.getPass());
             pst.setInt(4, usuario.getEsAdmin());
-            if(usuario.getId() != null && usuario.getId() > 0){
-                pst.setLong(5,usuario.getId());
+            if (usuario.getId() != null && usuario.getId() > 0) {
+                pst.setLong(5, usuario.getId());
             }
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -111,6 +113,46 @@ public class UsuarioDAO implements DAO<Usuario> {
         }
 
         return usuario;
+    }
+
+    public long contar() {
+        long usuarios = 0;
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery
+                     ("SELECT count(usuario_id) as usuarios from public.usuario")) {
+            if (rs.next()) {
+                usuarios = rs.getLong("usuarios");
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+
+        return usuarios;
+    }
+
+    public ArrayList<UsuarioRanking> obtenerRanking() {
+        ArrayList<UsuarioRanking> ranking = new ArrayList<>();
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT u.usuario_id, u.usuario_nombre as nombre, " +
+                     "u.usuario_correo as correo, count(p.partida_id) as partidas, sum(p.puntaje) as puntaje_total \n" +
+                     "from public.usuario_partida p inner join public.usuario u on p.usuario_id = u.usuario_id \n" +
+                     "group by u.usuario_id order by puntaje_total desc")) {
+            while (rs.next()) {
+                UsuarioRanking usuario = new UsuarioRanking();
+
+                usuario.setId(rs.getLong("usuario_id"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setPartidasJugadas(rs.getInt("partidas"));
+                usuario.setPuntajeTotal(rs.getInt("puntaje_total"));
+
+                ranking.add(usuario);
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+        return ranking;
     }
 
     public static Usuario getUsuario(ResultSet rs) throws SQLException {
