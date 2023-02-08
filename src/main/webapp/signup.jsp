@@ -57,7 +57,7 @@
                 </div>
                 <!-- Password input -->
 
-                <div class="text-center text-lg-start pt-2">
+                <div class="text-center text-lg-start pt-3">
 
                     <!-- Submit button -->
                     <input type="submit" class="btn btn-custom btn-lg"

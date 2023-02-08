@@ -43,11 +43,11 @@
                     <label class="form-label pt-2" for="form3Example4">Contrase&ntilde;a</label>
                     <input type="password" id="form3Example4" class="form-control"
                            placeholder="*****" name="pass" required/>
-                    <div class="invalid-feedback pb-3">Por favor, ingresa tu contrase&ntilde;a</div>
+                    <div class="invalid-feedback">Por favor, ingresa tu contrase&ntilde;a</div>
                 </div>
                 <!-- Password input -->
 
-                <div class="text-center text-lg-start pt-2">
+                <div class="text-center text-lg-start pt-3">
 
                     <!-- Submit button -->
                     <input type="submit" class="btn btn-custom btn-lg"
