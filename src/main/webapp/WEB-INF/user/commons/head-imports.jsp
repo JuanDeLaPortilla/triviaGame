@@ -4,7 +4,7 @@
 <!-- Bootstrap 5-->
 
 <!-- Custom Css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css?v=1.2">
 <!-- Custom Css-->
 
 <!-- Font Awasome -->
