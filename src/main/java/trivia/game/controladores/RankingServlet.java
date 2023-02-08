@@ -3,7 +3,6 @@ package trivia.game.controladores;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import trivia.game.DAO.PartidaDAO;
 import trivia.game.DAO.UsuarioDAO;
 
 import java.io.IOException;

@@ -11,7 +11,6 @@ import trivia.game.util.ServletUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(name = "categorias", value = "/categorias")
@@ -50,7 +49,7 @@ public class CategoriasServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CategoriaPreguntaDAO categoriaPreguntaDAO = new CategoriaPreguntaDAO((Connection) request.getAttribute("conn"));
 
-        String msg = "";
+        String msg;
         String action = request.getParameter("action");
 
         if (action != null) {
