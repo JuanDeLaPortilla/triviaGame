@@ -27,9 +27,9 @@
             <div class="row d-flex justify-content-center align-items-center gy-4">
 
                 <!-- Play button -->
-                <a class="btn btn-primary btn-lg"
-                   href="#">
-                    <i class="fa-solid fa-gamepad"></i> Jugar</a>
+                <button type="button" class="btn btn-primary btn-lg"
+                        data-bs-toggle="modal" data-bs-target="#modalReglas">
+                    <i class="fa-solid fa-gamepad"></i> Jugar</button>
                 <!-- Play button -->
 
                 <!-- Ranking button -->
@@ -61,6 +61,10 @@
 
     </div>
 </div>
+
+<!-- Modal -->
+<%@include file="modal-quiz-rules.jsp"%>
+<!-- Modal -->
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
 

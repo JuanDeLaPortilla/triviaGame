@@ -9,7 +9,7 @@ import trivia.game.util.ServletUtil;
 
 import java.io.IOException;
 
-@WebFilter({"/index", "/ranking"})
+@WebFilter({"/index", "/ranking", "/play"})
 public class LoginFiltro implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
