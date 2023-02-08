@@ -2,6 +2,8 @@ package trivia.game.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import trivia.game.modelos.Usuario;
 
 import java.io.IOException;
 
@@ -25,5 +27,10 @@ public class ServletUtil {
             id = 0L;
         }
         return id;
+    }
+
+    public static Usuario getSessionUser(HttpServletRequest request, String numeroUsuario) {
+        HttpSession session = request.getSession();
+        return (Usuario) session.getAttribute("usuario" + numeroUsuario);
     }
 }
