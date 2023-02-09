@@ -63,7 +63,7 @@
 </div>
 
 <!-- Modal -->
-<%@include file="modal-quiz-rules.jsp"%>
+<%@include file="/WEB-INF/user/modal-quiz-rules.jsp"%>
 <!-- Modal -->
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
