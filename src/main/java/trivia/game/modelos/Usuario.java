@@ -1,9 +1,13 @@
 package trivia.game.modelos;
 
+import com.google.gson.annotations.Expose;
+
 public class Usuario {
 
     //Atributos
+    @Expose
     private Long id;
+    @Expose
     private String nombre;
     private String correo;
     private String pass;

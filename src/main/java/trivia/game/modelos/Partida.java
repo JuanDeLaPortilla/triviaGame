@@ -18,6 +18,11 @@ public class Partida {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public Partida(String nombre, LocalDate fechaCreacion) {
+        this.nombre = nombre;
+        this.fechaCreacion = fechaCreacion;
+    }
+
     //Getters y Setters
     public Long getId() {
         return id;

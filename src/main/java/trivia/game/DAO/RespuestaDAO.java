@@ -46,6 +46,28 @@ public class RespuestaDAO implements DAO<Respuesta> {
         return respuesta;
     }
 
+    public ArrayList<Respuesta> buscarPorPregunta(Long id) {
+        ArrayList<Respuesta> respuestas = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.respuesta where pregunta_id=? ORDER BY random()")) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Respuesta respuesta = new Respuesta();
+
+                    respuesta.setId(rs.getLong("respuesta_id"));
+                    respuesta.setContenido(rs.getString("respuesta_contenido"));
+                    respuesta.setEsCorrecta(rs.getInt("es_correcta"));
+
+                    respuestas.add(respuesta);
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+        return respuestas;
+    }
+
     @Override
     public void modificar(Respuesta respuesta) {
         String sql;
@@ -58,7 +80,7 @@ public class RespuestaDAO implements DAO<Respuesta> {
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setLong(1, respuesta.getPregunta().getId());
             pst.setString(2, respuesta.getContenido());
-            pst.setInt(3,respuesta.getEsCorrecta());
+            pst.setInt(3, respuesta.getEsCorrecta());
             if (respuesta.getId() != null && respuesta.getId() > 0) {
                 pst.setLong(4, respuesta.getId());
             }

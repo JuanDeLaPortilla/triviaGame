@@ -1,6 +1,8 @@
 package trivia.game.DAO;
 
 import trivia.game.modelos.Pregunta;
+import trivia.game.modelos.PreguntasJuego;
+import trivia.game.modelos.Respuesta;
 import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
@@ -76,8 +78,45 @@ public class PreguntaDAO implements DAO<Pregunta> {
         }
     }
 
+    public ArrayList<PreguntasJuego> seleccionarPreguntas(Connection conn) {
+        RespuestaDAO respuestaDAO = new RespuestaDAO(conn);
+        ArrayList<PreguntasJuego> preguntas = buscarAleatorio();
+
+        for(PreguntasJuego pregunta: preguntas){
+            ArrayList<Respuesta> respuestas = respuestaDAO.buscarPorPregunta(pregunta.getId());
+            pregunta.setRespuestas(respuestas);
+        }
+
+        return preguntas;
+    }
+
+    public ArrayList<PreguntasJuego> buscarAleatorio(){
+        ArrayList<PreguntasJuego> preguntas = new ArrayList<>();
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("select p.*,cp.categoria_contenido from public.pregunta p inner join categoria_pregunta cp on p.categoria_id = cp.categoria_id ORDER BY random() LIMIT 10;")) {
+
+            while (rs.next()) {
+                PreguntasJuego pregunta = getPreguntasJuego(rs);
+                preguntas.add(pregunta);
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+
+        return preguntas;
+    }
+
     public static Pregunta getPregunta(ResultSet rs) throws SQLException {
         Pregunta p = new Pregunta();
+        p.setId(rs.getLong("pregunta_id"));
+        p.setCategoria(CategoriaPreguntaDAO.getCategoriaPregunta(rs));
+        p.setContenido(rs.getString("pregunta_contenido"));
+        return p;
+    }
+
+    public static PreguntasJuego getPreguntasJuego(ResultSet rs) throws SQLException {
+        PreguntasJuego p = new PreguntasJuego();
         p.setId(rs.getLong("pregunta_id"));
         p.setCategoria(CategoriaPreguntaDAO.getCategoriaPregunta(rs));
         p.setContenido(rs.getString("pregunta_contenido"));

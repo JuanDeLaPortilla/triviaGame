@@ -41,6 +41,11 @@
             <artifactId>glassfish-jstl</artifactId>
             <version>11.0.13</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>

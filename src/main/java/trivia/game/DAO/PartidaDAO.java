@@ -4,6 +4,7 @@ import trivia.game.modelos.Partida;
 import trivia.game.util.ExcepcionSQL;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,23 @@ public class PartidaDAO implements DAO<Partida> {
         Partida partida = null;
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.partida where partida_id=?")) {
             stmt.setLong(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    partida = getPartida(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+        return partida;
+    }
+
+    public Partida buscarPorNombreYFecha(String nombre, LocalDate fecha) {
+        Partida partida = null;
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.partida where partida_nombre=? and partida_fecha=?")) {
+            stmt.setString(1, nombre);
+            stmt.setDate(2, Date.valueOf(fecha));
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     partida = getPartida(rs);

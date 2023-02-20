@@ -16,7 +16,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a href="${pageContext.request.contextPath}/play" class="btn btn-primary">Continuar</a>
+                <a href="${pageContext.request.contextPath}/play?action=start" class="btn btn-primary">Continuar</a>
             </div>
         </div>
     </div>
