@@ -12,7 +12,7 @@
 
 .btn-custom {
     color: white;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     font-weight: 600;
 }
 
@@ -56,16 +56,52 @@
     background-image: url("../img/signup_bg.svg");
 }
 
-.card{
-    background-color: rgba(255,255,255,0.1) !important;
+.card {
+    background-color: rgba(255, 255, 255, 0.1) !important;
     color: white !important;
 }
 
-.table{
+.table {
     color: white !important;
     font-size: large !important;
 }
 
-.table-hover>tbody>tr:hover{
+.table-hover > tbody > tr:hover {
     color: #031633 !important;
+}
+
+.quiz_box .card-header .timer {
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 145px;
+}
+
+.quiz_box .card-header .timer .time_left_txt {
+    user-select: none;
+}
+
+.quiz_box .card-header .timer .timer_sec {
+    font-size: large;
+    font-weight: 500;
+    height: 30px;
+    width: 45px;
+    color: #fff;
+    border-radius: 5px;
+    line-height: 30px;
+    text-align: center;
+    background: #343a40;
+    border: 1px solid #343a40;
+    user-select: none;
+}
+
+.quiz_box .card-header .time_line {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 3px;
+    background: #007bff;
 }

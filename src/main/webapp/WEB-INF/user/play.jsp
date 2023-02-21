@@ -24,25 +24,35 @@
             <!-- Title -->
 
             <!-- Question Card -->
-            <div class="card">
-                <div class="card-header d-flex align-items-center p-3">
+            <div class="card quiz_box d-none">
+                <div class="card-header d-flex justify-content-between align-items-end">
                     <h4 class="titulo">Pregunta 1</h4>
+
+                    <!-- Timer -->
+                    <div class="timer">
+                        <div class="time_left_txt">Tiempo Restante</div>
+                        <div class="timer_sec">15</div>
+                    </div>
+                    <div class="time_line"></div>
+                    <!-- Timer -->
+
                 </div>
 
                 <div class="card-body">
-                    <div class="pregunta text-center">
-                        <h3>Pregunta?</h3>
+                    <div class="text-center">
+                        <h3 class="pregunta">Pregunta?</h3>
                     </div>
                     <div class="opciones row d-flex justify-content-center align-items-center gy-3 pt-3">
                         <button class="btn btn-custom col-xl-10 col-lg-10">Opcion 1</button>
                         <button class="btn btn-custom col-xl-10 col-lg-10">Opcion 2</button>
                         <button class="btn btn-custom col-xl-10 col-lg-10">Opcion 3</button>
-                        <button class="btn btn-custom ccol-xl-10 col-lg-10">Opcion 4</button>
+                        <button class="btn btn-custom col-xl-10 col-lg-10">Opcion 4</button>
                     </div>
                 </div>
 
-                <div class="card-footer p-3 text-end">
-                    <a href="#" class="btn btn-primary btn_siguiente">Siguiente</a>
+                <div class="card-footer text-end">
+                    <div class="total_preg"></div>
+                    <button class="btn btn-primary btn_siguiente">Siguiente</button>
                 </div>
             </div>
             <!-- Question Card -->
@@ -53,6 +63,7 @@
 </div>
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
+<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.26"></script>
 
 </body>
 </html>

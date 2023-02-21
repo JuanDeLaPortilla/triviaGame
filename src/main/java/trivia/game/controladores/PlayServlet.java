@@ -13,6 +13,7 @@ import trivia.game.DAO.PreguntaDAO;
 import trivia.game.modelos.Partida;
 import trivia.game.modelos.PreguntasJuego;
 import trivia.game.modelos.Usuario;
+import trivia.game.util.LocalDateAdapter;
 import trivia.game.util.ServletUtil;
 
 import java.io.IOException;
@@ -70,7 +71,9 @@ public class PlayServlet extends HttpServlet {
 
         partidaDAO.modificar(partida);//Se guarda en la base de datos
 
-        partida = partidaDAO.buscarPorNombreYFecha(partida.getNombre(), partida.getFechaCreacion());//Se busca la partida para obtener el id asignado
+        partida = partidaDAO
+                .buscarPorNombreYFecha
+                        (partida.getNombre(), partida.getFechaCreacion());//Se busca la partida para obtener el id asignado
 
         HttpSession session = request.getSession();//Se obtiene la sesion
 
@@ -89,13 +92,15 @@ public class PlayServlet extends HttpServlet {
         usuarios.add(usuario1);
         usuarios.add(usuario2);
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();//Se instancia el objeto gson
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation().create();//Se instancia el objeto gson
 
         return gson.toJson(usuarios);//Se regresa el json
     }
 
     private String sendQuestions(HttpServletRequest req, PreguntaDAO preguntaDAO) {
-        ArrayList<PreguntasJuego> preguntas = preguntaDAO.seleccionarPreguntas((Connection) req.getAttribute("conn"));//Se buscan las 10 preguntas para el juego
+        ArrayList<PreguntasJuego> preguntas = preguntaDAO
+                .seleccionarPreguntas((Connection) req.getAttribute("conn"));//Se buscan las 10 preguntas para el juego
 
         Gson gson = new Gson();//Se instancia el objeto gson
 
@@ -107,7 +112,9 @@ public class PlayServlet extends HttpServlet {
 
         Partida partida = (Partida) session.getAttribute("partida");//Se guardan estos datos en un objeto
 
-        Gson gson = new Gson();//Se instancia el objeto gson
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class,
+                        new LocalDateAdapter().nullSafe()).create();//Se instancia el objeto gson
 
         return gson.toJson(partida);//Se regresa el json
     }
