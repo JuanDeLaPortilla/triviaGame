@@ -26,9 +26,9 @@
                         <form class="row g-3" method="post"
                               action="${pageContext.request.contextPath}/respuestas?action=update">
                             <div class="col-12"><label for="input3" class="form-label">Pregunta</label>
-                                <select name="tagId" class="form-select" id="input3" required>
+                                <select name="preguntaId" class="form-select" id="input3" required>
                                     <c:forEach items="${requestScope.preguntas}" var="p">
-                                        <option value="${p.id}" ${p.id == requestScope.respuesta.pregunta.id ? Selected : ""}>${p.contenido}</option>
+                                        <option value="${p.id}" ${p.id == requestScope.respuesta.pregunta.id ? "selected" : ""}>${p.contenido}</option>
                                     </c:forEach>
                                 </select>
                             </div>

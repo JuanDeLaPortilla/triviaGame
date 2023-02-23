@@ -50,9 +50,9 @@
                     </div>
                 </div>
 
-                <div class="card-footer text-end">
+                <div class="card-footer d-flex justify-content-between align-items-center">
                     <div class="total_preg"></div>
-                    <button class="btn btn-primary btn_siguiente">Siguiente</button>
+                    <div class="btn btn-primary btn_siguiente d-none">Siguiente</div>
                 </div>
             </div>
             <!-- Question Card -->
@@ -63,7 +63,7 @@
 </div>
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.26"></script>
+<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.39"></script>
 
 </body>
 </html>

@@ -36,7 +36,7 @@
                             <div class="col-12"><label for="input3" class="form-label">Categor&iacute;a</label>
                                 <select name="tagId" class="form-select" id="input3" required>
                                     <c:forEach items="${requestScope.categorias}" var="c">
-                                        <option value="${c.id}" ${c.id == 1 ? Selected : ""}>${c.contenido}</option>
+                                        <option value="${c.id}" ${c.id == 1 ? "selected" : ""}>${c.contenido}</option>
                                     </c:forEach>
                                 </select>
                             </div>
