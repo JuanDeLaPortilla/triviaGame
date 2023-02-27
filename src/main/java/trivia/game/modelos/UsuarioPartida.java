@@ -1,9 +1,12 @@
 package trivia.game.modelos;
 
+import com.google.gson.annotations.Expose;
+
 public class UsuarioPartida {
     //Atributos
     private Usuario usuario;
     private Partida partida;
+    @Expose
     private int puntaje;
 
     //Constructores

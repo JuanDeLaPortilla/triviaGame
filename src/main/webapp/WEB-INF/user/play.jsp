@@ -90,7 +90,7 @@
 </div>
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.6"></script>
+<script src="${pageContext.request.contextPath}/assets/js/game.js"></script>
 
 </body>
 </html>

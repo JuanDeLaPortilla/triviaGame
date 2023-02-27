@@ -198,7 +198,7 @@ async function showResult() {
         winner.innerHTML = '¡El ganador es ' + players[0]['nombre']+'!';
     } else {
         if (usersScore[0]['puntaje'] < usersScore[1]['puntaje']){
-            winner.innerHTML = '¡El ganador es ' + players[0]['nombre']+'!';
+            winner.innerHTML = '¡El ganador es ' + players[1]['nombre']+'!';
         } else {
             winner.innerHTML = '¡Es un empate!';
         }

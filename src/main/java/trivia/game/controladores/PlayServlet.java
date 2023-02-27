@@ -158,8 +158,7 @@ public class PlayServlet extends HttpServlet {
         List<UsuarioPartida> infoPartida = usuarioPartidaDAO.buscarPorPartida(partidaId);
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class,
-                        new LocalDateAdapter().nullSafe()).create();//Se instancia el objeto gson
+                .excludeFieldsWithoutExposeAnnotation().create();//Se instancia el objeto gson
 
         return gson.toJson(infoPartida);//Se regresa el json
     }
