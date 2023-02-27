@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 public class LocalDateAdapter extends TypeAdapter<LocalDate> {
     @Override
-    public void write(JsonWriter jsonWriter, LocalDate localDate) throws IOException {
-        jsonWriter.value(localDate.toString());
+    public void write(JsonWriter jsonWriter, LocalDate localDateTime) throws IOException {
+        jsonWriter.value(localDateTime.toString());
     }
 
     @Override

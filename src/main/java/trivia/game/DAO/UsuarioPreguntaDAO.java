@@ -28,21 +28,20 @@ public class UsuarioPreguntaDAO {
         return usuarioPreguntas;
     }
 
-    public List<UsuarioPregunta> buscarPorId(Long usuarioId, Long partidaId) {
-        List<UsuarioPregunta> usuarioPreguntas = new ArrayList<>();
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from public.usuario_pregunta where usuario_id=? and partida_id=?")) {
+    public int calcularPuntaje(Long usuarioId, Long partidaId) {
+        int puntaje = 0;
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT puntaje from public.usuario_pregunta where usuario_id=? and partida_id=?")) {
             stmt.setLong(1, usuarioId);
             stmt.setLong(2, partidaId);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    UsuarioPregunta usuarioPregunta = getUsuarioPregunta(rs);
-                    usuarioPreguntas.add(usuarioPregunta);
+                    puntaje += rs.getInt("puntaje");
                 }
             }
         } catch (SQLException e) {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());
         }
-        return usuarioPreguntas;
+        return puntaje;
     }
 
     public List<UsuarioPregunta> buscarPorUsuario(Long id) {
@@ -61,12 +60,12 @@ public class UsuarioPreguntaDAO {
         return usuarioPreguntas;
     }
 
-    public void insertar(UsuarioPregunta usuarioPregunta) {
+    public void insertar(long usuarioId, long partidaId, long preguntaId, int puntaje) {
         try (PreparedStatement pst = conn.prepareStatement("insert into public.usuario_pregunta (usuario_id, partida_id, pregunta_id, puntaje) values (?,?,?,?)")) {
-            pst.setLong(1, usuarioPregunta.getUsuario().getId());
-            pst.setLong(2, usuarioPregunta.getPartida().getId());
-            pst.setLong(3, usuarioPregunta.getPregunta().getId());
-            pst.setInt(4, usuarioPregunta.getPuntaje());
+            pst.setLong(1, usuarioId);
+            pst.setLong(2, partidaId);
+            pst.setLong(3, preguntaId);
+            pst.setInt(4, puntaje);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());

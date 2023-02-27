@@ -50,7 +50,7 @@ public class PartidasServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PartidaDAO partidaDAO = new PartidaDAO((Connection) request.getAttribute("conn"));
 
-        String msg = "";
+        String msg;
         String action = request.getParameter("action");
 
         if (action != null) {

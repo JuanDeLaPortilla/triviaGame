@@ -57,13 +57,40 @@
             </div>
             <!-- Question Card -->
 
+            <!-- Result Box -->
+            <div class="card result_box d-none">
+                <div class="card-header">
+                    <h1 class="text-center winner"></h1>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puntaje</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="data">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer d-flex justify-content-center align-items-center">
+                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/play?action=goToIndex">Volver al
+                        Inicio</a>
+                </div>
+            </div>
+            <!-- Result Box -->
+
         </div>
         <!-- Center -->
     </div>
 </div>
 
 <%@include file="/WEB-INF/user/commons/footer-imports.jsp" %>
-<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.39"></script>
+<script src="${pageContext.request.contextPath}/assets/js/game.js?v=1.6"></script>
 
 </body>
 </html>

@@ -32,7 +32,7 @@ public class UsuarioPartidaDAO {
 
     public UsuarioPartida buscarPorId(Long usuarioId, Long partidaId) {
         UsuarioPartida usuarioPartida = null;
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT up.*, u.usuario_nombre, p.partida_nombre from public.usuario_partida up inner join usuario u on up.usuario_id = u.usuario_id inner join partida p on up.partida_id = p.partida_id where usuario_id=? and partida_id=?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT up.*, u.usuario_nombre, p.partida_nombre from public.usuario_partida up inner join usuario u on up.usuario_id = u.usuario_id inner join partida p on up.partida_id = p.partida_id where up.usuario_id=? and up.partida_id=?")) {
             stmt.setLong(1, usuarioId);
             stmt.setLong(2, partidaId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -44,6 +44,22 @@ public class UsuarioPartidaDAO {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());
         }
         return usuarioPartida;
+    }
+
+    public List<UsuarioPartida> buscarPorPartida(long partidaId) {
+        List<UsuarioPartida> usuarioPartidas = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT up.*, u.usuario_nombre, p.partida_nombre from public.usuario_partida up inner join usuario u on up.usuario_id = u.usuario_id inner join partida p on up.partida_id = p.partida_id where p.partida_id = ?")) {
+            stmt.setLong(1, partidaId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    UsuarioPartida usuarioPartida = getUsuarioPartida(rs);
+                    usuarioPartidas.add(usuarioPartida);
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionSQL(e.getMessage(), e.getCause());
+        }
+        return usuarioPartidas;
     }
 
     public List<UsuarioPartida> buscarPorUsuario(Long id) {
@@ -62,11 +78,11 @@ public class UsuarioPartidaDAO {
         return usuarioPartidas;
     }
 
-    public void insertar(UsuarioPartida usuarioPartida) {
+    public void insertar(long usuarioId, long partidaId, int puntaje) {
         try (PreparedStatement pst = conn.prepareStatement("insert into public.usuario_partida (usuario_id, partida_id, puntaje) values (?,?,?)")) {
-            pst.setLong(1, usuarioPartida.getUsuario().getId());
-            pst.setLong(2, usuarioPartida.getPartida().getId());
-            pst.setInt(3, usuarioPartida.getPuntaje());
+            pst.setLong(1, usuarioId);
+            pst.setLong(2, partidaId);
+            pst.setInt(3, puntaje);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());

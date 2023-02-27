@@ -61,12 +61,12 @@ public class UsuarioRespuestaDAO {
         return usuarioRespuestas;
     }
 
-    public void insertar(UsuarioRespuesta usuarioRespuesta) {
+    public void insertar(long usuarioId, long partidaId, long preguntaId, long respuestaId) {
         try (PreparedStatement pst = conn.prepareStatement("insert into public.usuario_respuesta (usuario_id, partida_id, pregunta_id, respuesta_id) values (?,?,?,?)")) {
-            pst.setLong(1, usuarioRespuesta.getUsuario().getId());
-            pst.setLong(2, usuarioRespuesta.getPartida().getId());
-            pst.setLong(3, usuarioRespuesta.getPregunta().getId());
-            pst.setLong(4, usuarioRespuesta.getRespuesta().getId());
+            pst.setLong(1, usuarioId);
+            pst.setLong(2, partidaId);
+            pst.setLong(3, preguntaId);
+            pst.setLong(4, respuestaId);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new ExcepcionSQL(e.getMessage(), e.getCause());
