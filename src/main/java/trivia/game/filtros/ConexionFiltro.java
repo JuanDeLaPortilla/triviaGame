@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebFilter("/*")
+@WebFilter({"/dashboard", "/categorias", "/usuarios", "/preguntas", "/respuestas", "/partidas", "/login", "/play", "/ranking", "/signup"})
 public class ConexionFiltro implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

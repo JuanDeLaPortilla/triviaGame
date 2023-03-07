@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Registrarse</title>
+    <ui:include src="/WEB-INF/user/commons/head-imports.jsp"/>
+</h:head>
+
+<h:body>
+    <div class="container-fluid h-100 spacer signup-background">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+
+            <!-- Left -->
+            <div class="col-xl-5 d-none d-xl-block"></div>
+            <!-- Left -->
+
+            <!-- Right -->
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 p-4 text-light custom-border">
+
+                <!-- Title -->
+                <div class="pb-3 d-flex flex-column">
+                    <span class="fs-4 m-0">Preparate para el juego,</span>
+                    <h2 class="fs-1 m-0">¡Regístrate!</h2>
+                </div>
+                <!-- Title -->
+
+                <!-- Form -->
+                <form class="needs-validation" method="post" action="${pageContext.request.contextPath}/signup">
+
+                    <!-- Name input -->
+                    <div class="form-outline mb-2 was-validated">
+                        <label class="form-label pt-2" for="form3Example1">Nombre de Usuario</label>
+                        <h:inputText id="form3Example1" styleClass="form-control"
+                                     placeholder="John69" name="nombre" required="true"/>
+                        <div class="invalid-feedback">Por favor, ingresa un nombre de usuario</div>
+                    </div>
+                    <!-- Name input -->
+
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-2 was-validated">
+                        <label class="form-label pt-2" for="form3Example3">Correo Electrónico</label>
+                        <h:inputText id="form3Example3" styleClass="form-control"
+                                     placeholder="ejemplo@correo.com" name="correo" required="true"/>
+                        <div class="invalid-feedback">Por favor, ingresa un correo electrónico</div>
+                    </div>
+                    <!-- Email input -->
+
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-2 was-validated">
+                        <label class="form-label pt-2" for="form3Example4">Contraseña</label>
+                        <h:inputSecret id="form3Example4" styleClass="form-control"
+                                       placeholder="*****" name="pass" required="true"/>
+                        <div class="invalid-feedback">Por favor, ingresa una contraseña</div>
+                    </div>
+                    <!-- Password input -->
+
+                    <div class="text-center text-lg-start pt-3">
+
+                        <!-- Submit button -->
+                        <h:commandButton type="submit" styleClass="btn btn-custom btn-lg"
+                                         style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Registrarse"/>
+                        <div class="small text-danger"><p>${error}</p></div>
+                        <!-- Submit button -->
+
+                        <!-- Bottom text -->
+                        <p class="small mt-2 mb-0">¿Ya tienes una cuenta? <a
+                                href="${pageContext.request.contextPath}/login"
+                                class="link-info">Inicia Sesión</a>
+                        </p>
+                        <!-- Bottom text -->
+
+                    </div>
+
+                </form>
+            </div>
+            <!-- Right -->
+
+        </div>
+    </div>
+
+    <ui:include src="/WEB-INF/user/commons/footer-imports.jsp"/>
+</h:body>
+
+</html>
